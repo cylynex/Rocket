@@ -8,6 +8,7 @@ TagManager:
   - LandingPad
   - FuelController
   - Terrain
+  - Obstacle
   layers:
   - Default
   - TransparentFX

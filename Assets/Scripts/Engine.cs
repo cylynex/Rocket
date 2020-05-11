@@ -59,10 +59,7 @@ public class Engine : MonoBehaviour {
 
 
     void CheckForDebugInput() {
-        if (Input.GetKeyDown(KeyCode.L)) {
-            LoadNextLevel();
-        }
-
+        
         if (Input.GetKeyDown(KeyCode.T)) {
             fbc.AdjustFuel(0.5f);
         }
@@ -122,6 +119,9 @@ public class Engine : MonoBehaviour {
             case "LandingPad":
                 WinLevel();
                 break;
+            case "Obstacle":
+                LoseLevel();
+                break;
             default:
                 LoseLevel();
                 break;
@@ -157,30 +157,12 @@ public class Engine : MonoBehaviour {
         rb.freezeRotation = false;
     }
 
-    void LoadFirstLevel() {
-        SceneManager.LoadScene(0);
-    }
-
-    void LoadNextLevel() {
-        GameController.levelIndex++;
-        string nextLevel = gc.levelSceneNames[GameController.levelIndex];
-        print("loading next level: " + nextLevel);
-        SceneManager.LoadScene(nextLevel);
-    }
-
-    void ReloadLevel() {
-        //string loadLevel = gc.levelSceneNames[GameController.levelIndex];
-        string loadLevel = gc.levelSceneNames[2];
-        SceneManager.LoadScene(loadLevel);
-    }
-
-    // TODO move to different script doesnt bleong here
     void WinLevel() {
         currentState = State.Transcending;
         SetSound(winSound);
         rb.freezeRotation = true;
         winEffect.Play();
-        Invoke("LoadNextLevel", levelLoadTime);
+        //Invoke("LoadNextLevel", levelLoadTime);
     }
 
 
@@ -190,6 +172,10 @@ public class Engine : MonoBehaviour {
         mainEngineEffects.Stop();
         loseEffect.Play();
         Invoke("ReloadLevel", levelLoadTime);
+    }
+
+    void ReloadLevel() {
+        gc.LoadLevel("Reload");
     }
 
 }
