@@ -5,10 +5,12 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class MovingObstacle : MonoBehaviour {
 
+    [Header("Setup Values")]
     [SerializeField] Vector2 movementVector;
+    public Vector2 startingPosition;
     [Range(0, 1)] [SerializeField] float movementFactor;
 
-    Vector2 startingPosition;
+    
     bool direction = true;
     [SerializeField] float moveAmount = .005f;
 

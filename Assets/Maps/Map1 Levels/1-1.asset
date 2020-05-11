@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d17a378d5bf21748b5d7e0b9675d898, type: 3}
+  m_Name: 1-1
+  m_EditorClassIdentifier: 
+  levelName: Baby Steps
+  obstacles:
+  - {fileID: 11400000, guid: 18a66fdd277d1894fb0aa71da294ec59, type: 2}
+  - {fileID: 11400000, guid: cd5491fb4ea84de4199428a01d0646ac, type: 2}
+  - {fileID: 11400000, guid: ecef1e47434f61f42a8b7b6acef73d01, type: 2}

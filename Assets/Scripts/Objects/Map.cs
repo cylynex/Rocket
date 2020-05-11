@@ -6,5 +6,6 @@ using UnityEngine;
 public class Map : ScriptableObject {
 
     public string mapName;
+    public Level[] levels;
 
 }
