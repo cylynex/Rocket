@@ -63,6 +63,10 @@ public class Engine : MonoBehaviour {
             LoadNextLevel();
         }
 
+        if (Input.GetKeyDown(KeyCode.T)) {
+            fbc.AdjustFuel(0.5f);
+        }
+
         if (Input.GetKeyDown(KeyCode.C)) {
             if (currentState == State.Testing) {
                 currentState = State.Alive;
@@ -97,13 +101,14 @@ public class Engine : MonoBehaviour {
     }
 
     void UseFuel() {
-        currentFuel -= fuelConsumptionRate;
+        currentFuel -= fuelConsumptionRate * Time.deltaTime;
         if (currentFuel <= 0) {
             currentFuel = 0;
             RunOutOfGas();
         }
 
-        fbc.AdjustFuel(currentFuel);
+        float barFuel = currentFuel / startingFuel;
+        fbc.AdjustFuel(barFuel);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

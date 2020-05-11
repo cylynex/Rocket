@@ -8,6 +8,7 @@ public class FuelBarController : MonoBehaviour {
     [SerializeField] Slider fuelBar;
     
     public void AdjustFuel(float currentFuel) {
+        print("adjusting fuel to: "+currentFuel);
         fuelBar.value = currentFuel;
     }
 
