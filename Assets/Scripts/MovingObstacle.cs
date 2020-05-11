@@ -11,26 +11,29 @@ public class MovingObstacle : MonoBehaviour {
     [Range(0, 1)] [SerializeField] float movementFactor;
 
     
-    bool direction = true;
+    public bool direction = true;
     [SerializeField] float moveAmount = .005f;
 
     private void Start() {
         startingPosition = transform.position;
+        print("start direction for me: " + gameObject.name + ": " + direction);
+        if(direction == false) {
+            movementFactor = 1;
+        }
     }
 
     void Update() {
 
         // Initial Attempt
         if (direction == true) {
-            MoveRight();
+            MoveUp();
         } else {
-            MoveLeft();
+            MoveDown();
         }
-
         Move();
     }
 
-    void MoveRight() {
+    void MoveUp() {
         if (movementFactor < 1) {
             movementFactor = movementFactor + moveAmount;
         } else {
@@ -39,7 +42,7 @@ public class MovingObstacle : MonoBehaviour {
         }
     }
 
-    void MoveLeft() {
+    void MoveDown() {
         if (movementFactor < 0) {
             movementFactor = movementFactor + moveAmount;
             direction = true;

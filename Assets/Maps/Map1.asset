@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapName: First Map
   levels:
-  - {fileID: 11400000, guid: f4f43616bdfd31e45ac068f3bebe28bc, type: 2}
   - {fileID: 11400000, guid: 05dd3b2e25ae2c343a7eab884190e36f, type: 2}
+  - {fileID: 11400000, guid: ed0b97858a773ca49953b1741fd5d007, type: 2}
+  - {fileID: 11400000, guid: 407ab6e1255d40f4f856263a534a1eba, type: 2}
+  - {fileID: 11400000, guid: afc86b354e00b11478d9440383baf277, type: 2}

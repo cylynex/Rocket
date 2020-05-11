@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d17a378d5bf21748b5d7e0b9675d898, type: 3}
   m_Name: 1-2
   m_EditorClassIdentifier: 
-  levelName: 
-  obstacles: []
+  levelName: Second Blood
+  obstacles:
+  - {fileID: 11400000, guid: 18a66fdd277d1894fb0aa71da294ec59, type: 2}
+  obstacleSpawnPositions:
+  - {x: 0, y: -3}

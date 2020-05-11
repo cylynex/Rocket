@@ -163,8 +163,8 @@ public class Engine : MonoBehaviour {
         rb.freezeRotation = true;
         winEffect.Play();
         //Invoke("LoadNextLevel", levelLoadTime);
+        gc.LoadLevel("NextLevel");
     }
-
 
     void LoseLevel() {
         currentState = State.Dying;

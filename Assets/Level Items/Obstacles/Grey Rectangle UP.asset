@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4022fb2d5859044e99f4f35ddfe2bb0, type: 3}
-  m_Name: Grey Center U-D Rectangle 2
+  m_Name: Grey Rectangle UP
   m_EditorClassIdentifier: 
-  startingPosition: {x: -3, y: 4}
   obstacleObject: {fileID: 7052696835918841722, guid: 129dc3b222baeaa4e80911eccc45e271,
     type: 3}
+  movable: 1
+  startingDirection: 1

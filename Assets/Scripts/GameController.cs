@@ -9,18 +9,18 @@ public class GameController : MonoBehaviour {
     //public string[] levelSceneNames;
     //public static int levelIndex = 0;
     // TODO map should be dynamically assigned from somewhere else.
-    [SerializeField] Map currentMap;
+    [SerializeField] public Map currentMap;
     [SerializeField] Level currentLevel;
-    [SerializeField] int currentLevelIndex = 0;
+    [SerializeField] static int currentLevelIndex = 0;
     [SerializeField] float levelLoadTime = 3f;
     [SerializeField] Transform obstacleHolder;
 
     private void Start() {
-        print("GameController Online and ready");
         LoadLevel();
     }
 
     void LoadLevel() {
+        print("levels in this map: " + currentMap.levels.Length);
         currentLevel = currentMap.levels[currentLevelIndex];
         if (currentLevel.obstacles.Length > 0) {
             print("Obstacles on this level - build now.");
@@ -31,29 +31,24 @@ public class GameController : MonoBehaviour {
     }
 
     void CreateObstacles() {
-
+        //
+        /*
         foreach (Obstacle obstacle in currentLevel.obstacles) {
-            print(obstacle.name);
-            Instantiate(obstacle.obstacleObject, obstacle.startingPosition, Quaternion.identity, obstacleHolder);
+            print(obstacle.name + " - spawn at: " + obstacle.startingPosition);
+            GameObject thisObstacle = Instantiate(obstacle.obstacleObject, obstacle.startingPosition, Quaternion.identity, obstacleHolder);
+            thisObstacle.GetComponent<MovingObstacle>().direction = obstacle.startingDirection;
+        }
+        */
+
+        for (int i = 0; i < currentLevel.obstacles.Length; i++) {
+            GameObject thisObstacle = Instantiate(currentLevel.obstacles[i].obstacleObject, currentLevel.obstacleSpawnPositions[i], Quaternion.identity, obstacleHolder);
+            thisObstacle.GetComponent<MovingObstacle>().direction = currentLevel.obstacles[i].startingDirection;
         }
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void LoadLevel(string levelToLoad) {
-        switch(levelToLoad) {
+        switch (levelToLoad) {
             case "Reload":
                 Invoke("ReloadLevel", levelLoadTime);
                 break;
@@ -62,17 +57,21 @@ public class GameController : MonoBehaviour {
                 break;
         }
     }
-
-
+          
     void ReloadLevel() {
         print("Reload this level");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // TODO finish this but with new SO system
     void LoadNextLevel() {
-        //levelIndex++;
-        //SceneManager.LoadScene()
+        currentLevelIndex++;
+        print(currentLevelIndex + " - " + currentMap.levels.Length);
+        if (currentLevelIndex < currentMap.levels.Length) {
+            print("Next level found - ok to load");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } else {
+            print("last level for this map already beaten - do something else");
+        }
     }
 
 }

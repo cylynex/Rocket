@@ -7,4 +7,5 @@ public class Level : ScriptableObject {
 
     public string levelName;
     public Obstacle[] obstacles;
+    public Vector2[] obstacleSpawnPositions;
 }

@@ -152,7 +152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMap: {fileID: 11400000, guid: 206f0fb39f2919940bde269f923d5fb6, type: 2}
   currentLevel: {fileID: 0}
-  currentLevelIndex: 0
   levelLoadTime: 3
   obstacleHolder: {fileID: 613474126}
 --- !u!4 &13549724
