@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Rocket : MonoBehaviour {
+public class Engine : MonoBehaviour {
 
-    Rigidbody rigidBody;
+    Rigidbody2D rb;
     AudioSource audioSource;
 
     [Header("Ship Values")]
@@ -43,7 +43,7 @@ public class Rocket : MonoBehaviour {
         currentFuel = startingFuel;
         fbc.AdjustFuel(currentFuel);
 
-        rigidBody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -80,7 +80,7 @@ public class Rocket : MonoBehaviour {
         if (currentState == State.Alive || currentState == State.Testing) {
             if (Input.GetKey(KeyCode.Space)) {
                 ApplyThrust();
-                UseFuel();
+                //UseFuel();
             } else {
                 audioSource.Stop();
                 mainEngineEffects.Stop();
@@ -89,7 +89,7 @@ public class Rocket : MonoBehaviour {
     }
 
     void ApplyThrust() {
-        rigidBody.AddRelativeForce(Vector3.up * thrustPower * Time.deltaTime);
+        rb.AddRelativeForce(Vector3.up * thrustPower * Time.deltaTime);
         if (!audioSource.isPlaying) {
             audioSource.PlayOneShot(mainEngine);
         }
@@ -140,7 +140,7 @@ public class Rocket : MonoBehaviour {
 
 
     void Rotate() {
-        rigidBody.freezeRotation = true;  // keep it from spinnign out of control
+        rb.freezeRotation = true;  // keep it from spinnign out of control
 
         if (Input.GetKey(KeyCode.A)) {
             transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
@@ -150,7 +150,7 @@ public class Rocket : MonoBehaviour {
             transform.Rotate(-Vector3.forward * rotationSpeed * Time.deltaTime);
         }
 
-        rigidBody.freezeRotation = false;
+        rb.freezeRotation = false;
     }
 
     void LoadFirstLevel() {
@@ -174,7 +174,7 @@ public class Rocket : MonoBehaviour {
     void WinLevel() {
         currentState = State.Transcending;
         SetSound(winSound);
-        rigidBody.freezeRotation = true;
+        rb.freezeRotation = true;
         winEffect.Play();
         Invoke("LoadNextLevel", levelLoadTime);
     }
