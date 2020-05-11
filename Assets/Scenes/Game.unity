@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 448463646}
   m_Layer: 0
   m_Name: Quad
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -454,20 +454,32 @@ Transform:
   m_Father: {fileID: 939494479}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &448463646
-MeshCollider:
+--- !u!61 &448463646
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448463644}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.99999994}
+  m_EdgeRadius: 0
 --- !u!23 &448463647
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -646,12 +658,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &915136240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 623963161341440801, guid: e151238b2bd7e0f4ea6b1895c0a2bba1,
+    type: 3}
+  m_PrefabInstance: {fileID: 623963160627670481}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &915136241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 623963161341440800, guid: e151238b2bd7e0f4ea6b1895c0a2bba1,
     type: 3}
   m_PrefabInstance: {fileID: 623963160627670481}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &915136242
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915136240}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 0.99999994}
+  m_EdgeRadius: 0
 --- !u!1 &933375078 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8409817498318619564, guid: fadf751b891344040a8059b067263c29,
@@ -842,7 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
-  thrustPower: 50
+  thrustPower: 750
   mainEngine: {fileID: 8300000, guid: b7ef4fc8a10f6fb4dbd2e9996586d970, type: 3}
   loseSound: {fileID: 8300000, guid: a862261feb361744c897f16a7c0d619c, type: 3}
   winSound: {fileID: 8300000, guid: e24f3fa1ec272b84cbc5a5c80d61a87b, type: 3}
@@ -1573,7 +1617,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Landing Platform
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 623963161341440803, guid: e151238b2bd7e0f4ea6b1895c0a2bba1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e151238b2bd7e0f4ea6b1895c0a2bba1, type: 3}
 --- !u!1001 &8409817498006286282
 PrefabInstance:

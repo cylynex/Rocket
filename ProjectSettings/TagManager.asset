@@ -7,6 +7,7 @@ TagManager:
   - TakeOffPad
   - LandingPad
   - FuelController
+  - Terrain
   layers:
   - Default
   - TransparentFX

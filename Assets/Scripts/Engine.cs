@@ -27,7 +27,7 @@ public class Engine : MonoBehaviour {
     [SerializeField] float levelLoadTime = 3f;
     [SerializeField] float currentFuel = 100f;
     [SerializeField] float startingFuel = 100f;
-    [SerializeField] float fuelConsumptionRate = 10f;
+    [SerializeField] float fuelConsumptionRate = 1f;
 
     enum State { Alive, Dying, Transcending, Testing };
     [SerializeField] State currentState = State.Alive;
@@ -80,7 +80,7 @@ public class Engine : MonoBehaviour {
         if (currentState == State.Alive || currentState == State.Testing) {
             if (Input.GetKey(KeyCode.Space)) {
                 ApplyThrust();
-                //UseFuel();
+                UseFuel();
             } else {
                 audioSource.Stop();
                 mainEngineEffects.Stop();
@@ -89,7 +89,7 @@ public class Engine : MonoBehaviour {
     }
 
     void ApplyThrust() {
-        rb.AddRelativeForce(Vector3.up * thrustPower * Time.deltaTime);
+        rb.AddRelativeForce(Vector2 .up * thrustPower * Time.deltaTime);
         if (!audioSource.isPlaying) {
             audioSource.PlayOneShot(mainEngine);
         }
@@ -106,8 +106,7 @@ public class Engine : MonoBehaviour {
         fbc.AdjustFuel(currentFuel);
     }
 
-    private void OnCollisionEnter(Collision collision) {
-
+    private void OnCollisionEnter2D(Collision2D collision) {
         if (currentState != State.Alive) { return; }
 
         switch (collision.gameObject.tag) {
