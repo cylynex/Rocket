@@ -2,49 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    [Header("Level Stuff")]
-    //public string[] levelSceneNames;
-    //public static int levelIndex = 0;
-    // TODO map should be dynamically assigned from somewhere else.
-    [SerializeField] public Map currentMap;
-    [SerializeField] Level currentLevel;
-    [SerializeField] static int currentLevelIndex = 0;
-    [SerializeField] float levelLoadTime = 3f;
+    [Header("Level Setup")]
+    [SerializeField] string levelName;
+    [TextArea(10,10)]
+    [SerializeField] string levelDescription;
+    [SerializeField] float startingFuel = 100f;
+    [SerializeField] public bool fuelConsumption = false;
+    [SerializeField] float fuelConsumptionRate = 1f;
+    [SerializeField] float maxLandVelocity = 2f;
+    [SerializeField] public bool isStarted = false;
+    Level thisLevel = new Level();
+
+    [Header("UI")] // TODO Move some of this to UI Class
+    [SerializeField] float levelLoadTime = 2f;
     [SerializeField] Transform obstacleHolder;
 
+    [SerializeField] Text levelNameLabel;
+    [SerializeField] Text levelDescriptionLabel;
+
+    GameObject player;
+    GameObject directionsPanel;
+    FuelBarController fbc;
+
     private void Start() {
-        LoadLevel();
+        player = GameObject.FindGameObjectWithTag("Player");
+        fbc = GameObject.FindGameObjectWithTag("FuelController").GetComponent<FuelBarController>();
+        
+        // Setup Level Object
+        thisLevel.levelName = levelName;
+        thisLevel.levelDescription = levelDescription;
+        thisLevel.startingFuel = startingFuel;
+        thisLevel.fuelConsumption = fuelConsumption;
+        thisLevel.fuelConsumptionRate = fuelConsumptionRate;
+        thisLevel.maxLandVelocity = maxLandVelocity;
+
+        // UI Stuff TODO move to own class
+        if (!fuelConsumption) {
+            fbc.gameObject.SetActive(false);
+        }
+        
+        // Setup UI
+        levelNameLabel.text = levelName;
+        levelDescriptionLabel.text = levelDescription;
     }
 
-    void LoadLevel() {
-        print("levels in this map: " + currentMap.levels.Length);
-        currentLevel = currentMap.levels[currentLevelIndex];
-        if (currentLevel.obstacles.Length > 0) {
-            print("Obstacles on this level - build now.");
-            CreateObstacles();
-        } else {
-            print("No Obstacles on this level to build");
-        }
-    }
-
-    void CreateObstacles() {
-        //
-        /*
-        foreach (Obstacle obstacle in currentLevel.obstacles) {
-            print(obstacle.name + " - spawn at: " + obstacle.startingPosition);
-            GameObject thisObstacle = Instantiate(obstacle.obstacleObject, obstacle.startingPosition, Quaternion.identity, obstacleHolder);
-            thisObstacle.GetComponent<MovingObstacle>().direction = obstacle.startingDirection;
-        }
-        */
-
-        for (int i = 0; i < currentLevel.obstacles.Length; i++) {
-            GameObject thisObstacle = Instantiate(currentLevel.obstacles[i].obstacleObject, currentLevel.obstacleSpawnPositions[i], Quaternion.identity, obstacleHolder);
-            thisObstacle.GetComponent<MovingObstacle>().direction = currentLevel.obstacles[i].startingDirection;
-        }
-
+    public void StartLevel() {
+        isStarted = true;
+        player.GetComponent<Engine>().SetupData(thisLevel);
     }
 
     public void LoadLevel(string levelToLoad) {
@@ -57,21 +65,12 @@ public class GameController : MonoBehaviour {
                 break;
         }
     }
-          
-    void ReloadLevel() {
-        print("Reload this level");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     void LoadNextLevel() {
-        currentLevelIndex++;
-        print(currentLevelIndex + " - " + currentMap.levels.Length);
-        if (currentLevelIndex < currentMap.levels.Length) {
-            print("Next level found - ok to load");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        } else {
-            print("last level for this map already beaten - do something else");
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-
+          
+    void ReloadLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

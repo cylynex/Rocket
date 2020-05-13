@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: 1-1
   m_EditorClassIdentifier: 
   levelName: First Blood
+  sceneName: Game1
   obstacles: []
   obstacleSpawnPositions: []
+  fuelConsumption: 0
+  levelGoalDescription: Make it to the blue platform without crashing.  Simple enough
+    right??

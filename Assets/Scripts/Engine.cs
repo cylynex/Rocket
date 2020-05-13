@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Engine : MonoBehaviour {
 
-    Rigidbody2D rb;
+    Rigidbody rb;
     AudioSource audioSource;
 
     [Header("Ship Values")]
     [SerializeField] float rotationSpeed = 100f;
     [SerializeField] float thrustPower = 50f;
+    [SerializeField] GameObject shipGraphic;
 
     [Header("Sounds")]
     [SerializeField] AudioClip mainEngine;
@@ -22,12 +24,16 @@ public class Engine : MonoBehaviour {
     [SerializeField] ParticleSystem loseEffect;
     [SerializeField] ParticleSystem winEffect;
 
-    // TODO - These shoudl all go into a SO for level variables.
-    [Header("Level Values")]
-    [SerializeField] float levelLoadTime = 3f;
-    [SerializeField] float currentFuel = 100f;
-    [SerializeField] float startingFuel = 100f;
-    [SerializeField] float fuelConsumptionRate = 1f;
+    [Header("Game Variables")] // Imported from GC
+    [SerializeField] Level levelData;
+    [SerializeField] float currentFuel;
+    [SerializeField] public bool isStarted;
+    
+    [Header("Dashboard")]
+    [SerializeField] float velocity;
+
+    [Header("UI")]
+    [SerializeField] Text velocityLabel;
 
     enum State { Alive, Dying, Transcending, Testing };
     [SerializeField] State currentState = State.Alive;
@@ -35,53 +41,45 @@ public class Engine : MonoBehaviour {
     GameController gc;
     FuelBarController fbc;
 
-    private void Start() {
+    private void Awake() {
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-
-        // Fuel Stuff
         fbc = GameObject.FindGameObjectWithTag("FuelController").GetComponent<FuelBarController>();
-        currentFuel = startingFuel;
-        fbc.AdjustFuel(currentFuel);
-
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        velocityLabel = GameObject.FindGameObjectWithTag("VelocityLabel").GetComponent<Text>();
+    }
+
+    // Setup local variables when sent over from the Game Controller
+    public void SetupData(Level thisLevel) {
+        isStarted = true;
+        levelData = thisLevel;
+        currentFuel = levelData.startingFuel;
+        fbc.AdjustFuel(levelData.startingFuel);
     }
 
     private void Update() {
+        if (isStarted) {
+            if (currentState == State.Alive || currentState == State.Testing) {
+                Thrust();
+                Rotate();
+            } 
 
-        if (currentState == State.Alive || currentState == State.Testing) {
-            Thrust();
-            Rotate();
-        }
-
-        CheckForDebugInput();
-    }
-
-
-    void CheckForDebugInput() {
-        
-        if (Input.GetKeyDown(KeyCode.T)) {
-            fbc.AdjustFuel(0.5f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C)) {
-            if (currentState == State.Testing) {
-                currentState = State.Alive;
-                print("Test Mode Disabled");
-            }
-            else {
-                currentState = State.Testing;
-                print("Test Mode Enabled");
-            }
+            velocity = rb.velocity.magnitude;
+            float vel = Mathf.Round(velocity);
+            velocityLabel.text = vel.ToString();
         }
     }
-
-
+    
     void Thrust() {
         if (currentState == State.Alive || currentState == State.Testing) {
             if (Input.GetKey(KeyCode.Space)) {
                 ApplyThrust();
-                UseFuel();
+
+                // Only monitor fuel if this level is tracking fuel consumption
+                if (levelData.fuelConsumption) {
+                    UseFuel();
+                }
+
             } else {
                 audioSource.Stop();
                 mainEngineEffects.Stop();
@@ -98,26 +96,32 @@ public class Engine : MonoBehaviour {
     }
 
     void UseFuel() {
-        currentFuel -= fuelConsumptionRate * Time.deltaTime;
+        currentFuel -= levelData.fuelConsumptionRate * Time.deltaTime;
         if (currentFuel <= 0) {
             currentFuel = 0;
             RunOutOfGas();
         }
 
-        float barFuel = currentFuel / startingFuel;
-        fbc.AdjustFuel(barFuel);
+        UpdateFuel();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionEnter(Collision collision) {
         if (currentState != State.Alive) { return; }
 
         switch (collision.gameObject.tag) {
             case "TakeOffPad":
                 break;
             case "Fuel":
+                print("got some free fuel");
+                currentFuel += collision.gameObject.GetComponent<FuelPowerUp>().fuelAmount;
+                UpdateFuel();
                 break;
             case "LandingPad":
-                WinLevel();
+                if (velocity > levelData.maxLandVelocity) {
+                    LoseLevel();
+                } else {
+                    WinLevel();
+                }
                 break;
             case "Obstacle":
                 LoseLevel();
@@ -127,16 +131,12 @@ public class Engine : MonoBehaviour {
                 break;
         }
     }
-    
-    void RunOutOfGas() {
-        currentState = State.Dying;
-        SetSound(loseSound);
-        mainEngineEffects.Stop();
-        //loseEffect.Play();
-        Invoke("ReloadLevel", levelLoadTime);
+
+    void UpdateFuel() {
+        float barFuel = currentFuel / levelData.startingFuel;
+        fbc.AdjustFuel(barFuel);
     }
-
-
+    
     void SetSound(AudioClip soundToPlay) {
         audioSource.Stop();
         audioSource.PlayOneShot(soundToPlay);
@@ -144,7 +144,7 @@ public class Engine : MonoBehaviour {
 
 
     void Rotate() {
-        rb.freezeRotation = true;  // keep it from spinnign out of control
+        rb.freezeRotation = true;  // keep it from spinning out of control
 
         if (Input.GetKey(KeyCode.A)) {
             transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
@@ -162,7 +162,6 @@ public class Engine : MonoBehaviour {
         SetSound(winSound);
         rb.freezeRotation = true;
         winEffect.Play();
-        //Invoke("LoadNextLevel", levelLoadTime);
         gc.LoadLevel("NextLevel");
     }
 
@@ -171,11 +170,16 @@ public class Engine : MonoBehaviour {
         SetSound(loseSound);
         mainEngineEffects.Stop();
         loseEffect.Play();
-        Invoke("ReloadLevel", levelLoadTime);
-    }
-
-    void ReloadLevel() {
+        rb.freezeRotation = true;
+        shipGraphic.SetActive(false);
         gc.LoadLevel("Reload");
     }
 
+    void RunOutOfGas() {
+        currentState = State.Dying;
+        SetSound(loseSound);
+        mainEngineEffects.Stop();
+        loseEffect.Play();
+        gc.LoadLevel("Reload");
+    }
 }

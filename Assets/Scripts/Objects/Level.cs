@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="Level",menuName ="Level")]
-public class Level : ScriptableObject {
+public class Level {
 
     public string levelName;
-    public Obstacle[] obstacles;
-    public Vector2[] obstacleSpawnPositions;
+    public string levelDescription;
+    public float startingFuel;
+    public bool fuelConsumption = false;
+    public float fuelConsumptionRate;
+    public float maxLandVelocity;
 }

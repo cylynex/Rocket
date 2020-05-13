@@ -9,6 +9,9 @@ TagManager:
   - FuelController
   - Terrain
   - Obstacle
+  - DirectionsPanel
+  - VelocityLabel
+  - Fuel
   layers:
   - Default
   - TransparentFX
