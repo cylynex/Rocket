@@ -50,7 +50,7 @@ public class Engine : MonoBehaviour {
         velocityLabel = GameObject.FindGameObjectWithTag("VelocityLabel").GetComponent<Text>();
     }
 
-    // Setup local variables when sent over from the Game Controller
+    // Setup local variables when sent over  from the Game Controller
     public void SetupData(Level thisLevel) {
         isStarted = true;
         levelData = thisLevel;
