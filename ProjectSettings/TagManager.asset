@@ -14,6 +14,7 @@ TagManager:
   - Fuel
   - LevelData
   - ObstacleSpawner
+  - BreakPad
   layers:
   - Default
   - TransparentFX

@@ -31,6 +31,7 @@ public class Engine : MonoBehaviour {
     
     [Header("Dashboard")]
     [SerializeField] float velocity;
+    [SerializeField] public bool isDocked = false;
 
     [Header("UI")]
     [SerializeField] Text velocityLabel;
@@ -80,6 +81,10 @@ public class Engine : MonoBehaviour {
                     UseFuel();
                 }
 
+                if (isDocked) {
+                    isDocked = false;
+                }
+
             } else {
                 audioSource.Stop();
                 mainEngineEffects.Stop();
@@ -123,6 +128,8 @@ public class Engine : MonoBehaviour {
                     WinLevel();
                 }
                 break;
+            case "BreakPad":
+                break;
             case "Obstacle":
                 LoseLevel();
                 break;
@@ -155,6 +162,12 @@ public class Engine : MonoBehaviour {
         }
 
         rb.freezeRotation = false;
+    }
+
+    // Docking Stuff
+    public void DockPosition(Vector3 newPosition, GameObject dockLocation) {
+        transform.position = newPosition;
+        if (!isDocked) { isDocked = true; }
     }
 
     void WinLevel() {
