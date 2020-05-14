@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class MovingObstacle : MonoBehaviour {
+public class SimpleMovement : MonoBehaviour {
 
     [Header("Setup Values")]
     [SerializeField] Vector2 movementVector;

@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    [Header("Level Setup")]
+    [Header("Level Data")]
+    [SerializeField] Level level;
+    /*
     [SerializeField] string levelName;
     [TextArea(10,10)]
     [SerializeField] string levelDescription;
@@ -14,8 +16,9 @@ public class GameController : MonoBehaviour {
     [SerializeField] public bool fuelConsumption = false;
     [SerializeField] float fuelConsumptionRate = 1f;
     [SerializeField] float maxLandVelocity = 2f;
+    */
+
     [SerializeField] public bool isStarted = false;
-    Level thisLevel = new Level();
 
     [Header("UI")] // TODO Move some of this to UI Class
     [SerializeField] float levelLoadTime = 2f;
@@ -26,33 +29,24 @@ public class GameController : MonoBehaviour {
 
     GameObject player;
     GameObject directionsPanel;
-    FuelBarController fbc;
+    [SerializeField] FuelBarController fbc;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
-        fbc = GameObject.FindGameObjectWithTag("FuelController").GetComponent<FuelBarController>();
-        
-        // Setup Level Object
-        thisLevel.levelName = levelName;
-        thisLevel.levelDescription = levelDescription;
-        thisLevel.startingFuel = startingFuel;
-        thisLevel.fuelConsumption = fuelConsumption;
-        thisLevel.fuelConsumptionRate = fuelConsumptionRate;
-        thisLevel.maxLandVelocity = maxLandVelocity;
 
         // UI Stuff TODO move to own class
-        if (!fuelConsumption) {
+        if (!level.fuelConsumption) {
             fbc.gameObject.SetActive(false);
         }
         
         // Setup UI
-        levelNameLabel.text = levelName;
-        levelDescriptionLabel.text = levelDescription;
+        levelNameLabel.text = level.levelName;
+        levelDescriptionLabel.text = level.levelDescription;
     }
 
     public void StartLevel() {
         isStarted = true;
-        player.GetComponent<Engine>().SetupData(thisLevel);
+        player.GetComponent<Engine>().SetupData(level);
     }
 
     public void LoadLevel(string levelToLoad) {

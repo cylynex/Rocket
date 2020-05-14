@@ -60,11 +60,7 @@ MonoBehaviour:
   loseEffect: {fileID: 2820724679589664454}
   winEffect: {fileID: 198631066050499358, guid: 62198a3a5dbb64a4f9e1618929224faa,
     type: 3}
-  levelLoadTime: 2
   currentFuel: 100
-  startingFuel: 100
-  fuelConsumptionRate: 10
-  maxLandVelocity: 5
   isStarted: 0
   velocity: 0
   velocityLabel: {fileID: 0}

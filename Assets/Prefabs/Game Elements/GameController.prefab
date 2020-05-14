@@ -43,12 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41feb565360ee4b4baad49521553ea06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: {fileID: 0}
+  isStarted: 0
   levelLoadTime: 1
   obstacleHolder: {fileID: 0}
-  isStarted: 0
-  fuelConsumption: 0
-  levelName: {fileID: 0}
-  levelDescription: {fileID: 0}
-  player: {fileID: 0}
-  directionsPanel: {fileID: 0}
+  levelNameLabel: {fileID: 0}
+  levelDescriptionLabel: {fileID: 0}
   fbc: {fileID: 0}

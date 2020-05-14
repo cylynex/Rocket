@@ -12,6 +12,7 @@ TagManager:
   - DirectionsPanel
   - VelocityLabel
   - Fuel
+  - LevelData
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Game
   - 
   - 
   - 
@@ -48,4 +49,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 2124234667
+    locked: 0
+  - name: Game
+    uniqueID: 889250469
     locked: 0
