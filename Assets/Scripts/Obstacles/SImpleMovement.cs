@@ -10,14 +10,13 @@ public class SimpleMovement : MonoBehaviour {
     public Vector2 startingPosition;
     [Range(0, 1)] [SerializeField] float movementFactor;
 
-    
+
     public bool direction = true;
     [SerializeField] float moveAmount = .005f;
 
     private void Start() {
         startingPosition = transform.position;
-        print("start direction for me: " + gameObject.name + ": " + direction);
-        if(direction == false) {
+        if (direction == false) {
             movementFactor = 1;
         }
     }
@@ -27,7 +26,8 @@ public class SimpleMovement : MonoBehaviour {
         // Initial Attempt
         if (direction == true) {
             MoveUp();
-        } else {
+        }
+        else {
             MoveDown();
         }
         Move();
@@ -35,19 +35,21 @@ public class SimpleMovement : MonoBehaviour {
 
     void MoveUp() {
         if (movementFactor < 1) {
-            movementFactor = movementFactor + moveAmount;
-        } else {
-            movementFactor = movementFactor - moveAmount;
+            movementFactor = movementFactor + (moveAmount / 1000);
+        }
+        else {
+            movementFactor = movementFactor - (moveAmount / 1000);
             direction = false;
         }
     }
 
     void MoveDown() {
         if (movementFactor < 0) {
-            movementFactor = movementFactor + moveAmount;
+            movementFactor = movementFactor + (moveAmount / 1000);
             direction = true;
-        } else {
-            movementFactor = movementFactor - moveAmount;
+        }
+        else {
+            movementFactor = movementFactor - (moveAmount / 1000);
         }
     }
 

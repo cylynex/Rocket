@@ -13,6 +13,7 @@ TagManager:
   - VelocityLabel
   - Fuel
   - LevelData
+  - ObstacleSpawner
   layers:
   - Default
   - TransparentFX

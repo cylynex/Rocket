@@ -47,6 +47,14 @@ public class GameController : MonoBehaviour {
     public void StartLevel() {
         isStarted = true;
         player.GetComponent<Engine>().SetupData(level);
+        StartSpawners();
+    }
+
+    void StartSpawners() {
+        GameObject[] spawners = GameObject.FindGameObjectsWithTag("ObstacleSpawner");
+        foreach (GameObject spawner in spawners) {
+            spawner.GetComponent<ObstacleSpawner>().BeginSpawning();
+        }
     }
 
     public void LoadLevel(string levelToLoad) {
