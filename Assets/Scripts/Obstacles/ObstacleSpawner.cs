@@ -69,6 +69,7 @@ public class ObstacleSpawner : MonoBehaviour {
     }
 
     void SpawnObstacle() {
+        print("spawning");
         GameObject newItem = Instantiate(objectToSpawn, transform.position, Quaternion.identity, transform);
         newItem.name = "(Mobile)" + newItem.name;
         if (randomizeAll) {
@@ -78,8 +79,7 @@ public class ObstacleSpawner : MonoBehaviour {
                 Random.Range(0, 0)
                 );
             newItem.GetComponent<Rigidbody>().AddForce((randomAll * 100) * Time.deltaTime);
-        }
-        else {
+        } else {
             newItem.GetComponent<Rigidbody>().AddForce((movementDirection * 100) * Time.deltaTime);
         }
     }
