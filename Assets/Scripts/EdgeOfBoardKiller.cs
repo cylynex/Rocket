@@ -5,6 +5,7 @@ using UnityEngine;
 public class EdgeOfBoardKiller : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
+        print("Something hit killer: " + collision.gameObject.tag);
         if (collision.gameObject.tag == "Obstacle") {
             Destroy(collision.gameObject);
         } else if (collision.gameObject.tag == "Player") {

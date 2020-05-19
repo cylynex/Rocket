@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/* Spinner Obstacle Script v1
+ * 
+ * spinSpeed Sets the Speed the object will rotate at.
+ * You can make a parent gameobject that has this script on it to spin any 
+ * other object or objects you want to rotate, at either the center or any side points
+ * to create any sort of basic rotation
+ */
+ 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

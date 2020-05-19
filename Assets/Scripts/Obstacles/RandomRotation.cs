@@ -1,4 +1,16 @@
-﻿using System.Collections;
+﻿/* Random Rotation v1
+ * 
+ * What It Does:
+ * Allows an object to rotate randomly on the X and Y axis
+ * 
+ * Variables:
+ * Rotation Min and Max set the range you want the object to rotate on each axis.  It will then select numbers for the
+ * X and Y and rotate the object on those values
+ * 
+ * Rotation Speed - The Speed the object will rotate
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
