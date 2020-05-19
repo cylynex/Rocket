@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnOnOff : MonoBehaviour {
 
-    [SerializeField] GameObject blinkItem;
+    [SerializeField] GameObject[] blinkItem;
     [SerializeField] float activationTimer;
     [SerializeField] float timer;
     bool onOff = true;
@@ -22,17 +22,24 @@ public class TurnOnOff : MonoBehaviour {
 
     void SwapState() {
         if (onOff) {
-            print("turn off");
-            blinkItem.SetActive(false);
-            onOff = false;
+            ChangeState(false);
+            //blinkItem.SetActive(false);
+            //onOff = false;
         } else {
-            print("turn on");
-            blinkItem.SetActive(true);
-            onOff = true;
+            ChangeState(true);
+            //blinkItem.SetActive(true);
+            //onOff = true;
         }
 
         timer = activationTimer;
 
+    }
+
+    void ChangeState(bool whichWay) {
+        for(int i = 0; i < blinkItem.Length; i++) {
+            blinkItem[i].SetActive(whichWay);
+            onOff = whichWay;
+        }
     }
 
 }

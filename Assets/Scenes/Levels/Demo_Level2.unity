@@ -592,6 +592,86 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 129dc3b222baeaa4e80911eccc45e271, type: 3}
+--- !u!1001 &311786032
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1585735432}
+    m_Modifications:
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.90077424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.43428773
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -128.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346624299370032119, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.9663393
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445395092088050156, guid: be041a4ab28a38c46b23cf307b445402,
+        type: 3}
+      propertyPath: m_Name
+      value: Angled Deflector (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: be041a4ab28a38c46b23cf307b445402, type: 3}
+--- !u!1 &311786033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2445395092088050156, guid: be041a4ab28a38c46b23cf307b445402,
+    type: 3}
+  m_PrefabInstance: {fileID: 311786032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &448463644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,9 +1871,24 @@ PrefabInstance:
         type: 0}
     - target: {fileID: 1966553530457124188, guid: aac7bd51ff5b5bc4ba5d3df15d045dca,
         type: 3}
+      propertyPath: blinkItem.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966553530457124188, guid: aac7bd51ff5b5bc4ba5d3df15d045dca,
+        type: 3}
       propertyPath: blinkItem
       value: 
       objectReference: {fileID: 1261036630}
+    - target: {fileID: 1966553530457124188, guid: aac7bd51ff5b5bc4ba5d3df15d045dca,
+        type: 3}
+      propertyPath: blinkItem.Array.data[0]
+      value: 
+      objectReference: {fileID: 1261036630}
+    - target: {fileID: 1966553530457124188, guid: aac7bd51ff5b5bc4ba5d3df15d045dca,
+        type: 3}
+      propertyPath: blinkItem.Array.data[1]
+      value: 
+      objectReference: {fileID: 311786033}
     - target: {fileID: 1966553530457124189, guid: aac7bd51ff5b5bc4ba5d3df15d045dca,
         type: 3}
       propertyPath: m_LocalPosition.x
