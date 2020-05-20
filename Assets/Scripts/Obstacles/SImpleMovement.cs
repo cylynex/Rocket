@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿/* Simple Movement v1
+ * 
+ * What it Does:
+ * Lets an object move Side to side, up and down, or diagonal.
+ * 
+ * Variables:
+ * Movement Vector: The X and Y values you want it to traverse.  Just set the amount you want it to move here and it will move along that axis that amount.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

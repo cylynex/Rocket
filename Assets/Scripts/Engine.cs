@@ -63,17 +63,26 @@ public class Engine : MonoBehaviour {
             if (currentState == State.Alive || currentState == State.Testing) {
                 Thrust();
                 Rotate();
-            } 
+            }
 
             velocity = rb.velocity.magnitude;
             float vel = Mathf.Round(velocity);
             velocityLabel.text = vel.ToString();
         }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton1)) {
+            print("ok");
+        }
+
+        if (Input.GetAxis("Fire1") > 0 || Input.GetKey(KeyCode.Space)) {
+            print("GO");
+        }
     }
     
     void Thrust() {
         if (currentState == State.Alive || currentState == State.Testing) {
-            if (Input.GetKey(KeyCode.Space)) {
+           
+            if (Input.GetAxis("Fire1") > 0 || Input.GetKey(KeyCode.Space)) {
                 ApplyThrust();
 
                 // Only monitor fuel if this level is tracking fuel consumption
@@ -153,12 +162,15 @@ public class Engine : MonoBehaviour {
     void Rotate() {
         rb.freezeRotation = true;  // keep it from spinning out of control
 
-        if (Input.GetKey(KeyCode.A)) {
-            transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
-        }
 
-        if (Input.GetKey(KeyCode.D)) {
+        if (Input.GetAxis("Horizontal") < -0.1f || Input.GetKey(KeyCode.A)) {
+            print("left");
+            transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        } else if (Input.GetAxis("Horizontal") > 0.1f || Input.GetKey(KeyCode.D)) {
+            print("right");
             transform.Rotate(-Vector3.forward * rotationSpeed * Time.deltaTime);
+        } else {
+            print("Neutral");
         }
 
         rb.freezeRotation = false;
